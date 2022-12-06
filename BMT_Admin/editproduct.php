@@ -9,52 +9,14 @@ if (isset($_POST['upload'])) {
     $title = $_POST['title'];
     $description = $_POST['description'];
     $type = $_POST['type'];
-    if($_FILES["image"]["error"] == 4){
-      echo
-      "<script> alert('Image Does Not Exist'); </script>"
-      ;
-    }
-    else{
-      $fileName = $_FILES["image"]["name"];
-      $fileSize = $_FILES["image"]["size"];
-      $tmpName = $_FILES["image"]["tmp_name"];
-  
-      $validImageExtension = ['jpg', 'jpeg', 'png'];
-      $imageExtension = explode('.', $fileName);
-      $imageExtension = strtolower(end($imageExtension));
-      if ( !in_array($imageExtension, $validImageExtension) ){
-        echo
-        "
-        <script>
-          alert('Invalid Image Extension');
-        </script>
-        ";
+    $query = "update list_product SET title='$title', description='$description', type='$type' where id = '$ID'";
+        if ($query) {
+          echo "<script>alert('Product Successfully Updated');</script>";
+          echo "<script type='text/javascript'> document.location ='list_product.php'; </script>";
+        } else {
+          echo "Error Updating Product" . mysqli_error($con);
+        }
       }
-      else if($fileSize > 1000000){
-        echo
-        "
-        <script>
-          alert('Image Size Is Too Large');
-        </script>
-        ";
-      }
-      else{
-        $newImageName = uniqid();
-        $newImageName .= '.' . $imageExtension;
-  
-        move_uploaded_file($tmpName, 'img/' . $newImageName);
-        $query = "update list_product SET title='$title', description='$description', type='$type', image = '$newImageName' where id = '$ID'";
-        mysqli_query($con, $query);
-        echo
-        "
-        <script>
-          alert('Successfully Added');
-          document.location.href = 'addservice.php';
-        </script>
-        ";
-      }
-    }
-}
                 $ID = $_GET['id'];
                 $ret = mysqli_query($con, "select * from list_product where id = '$ID'");
                 $cnt = 1;
@@ -153,17 +115,6 @@ if (isset($_POST['upload'])) {
                           
                         </select>
                       </div>
-                  <div class="form-group">
-                    <label for="image">Image</label>
-                    <br>
-                    <img src="../img/<?php echo $row['image'];?>" style="width:300px;height:200px;">
-                  </div>
-                  <div class="form-group">
-                    <label for="image">Change Image</label>
-                    <br>
-                    <div class="form-group">
-                <input type="file" name="image" accept=".jpg, .jpeg, .png" value="img/<?php echo $row['image'];?>">
-            </div>
                   </div>
                   </div>
                  <div class="card-footer">

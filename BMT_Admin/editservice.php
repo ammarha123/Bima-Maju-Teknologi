@@ -8,52 +8,14 @@ if (isset($_POST['upload'])) {
     $ID = $_GET['id'];
     $title = $_POST['title'];
     $description = $_POST['description'];
-    if($_FILES["image"]["error"] == 4){
-      echo
-      "<script> alert('Image Does Not Exist'); </script>"
-      ;
-    }
-    else{
-      $fileName = $_FILES["image"]["name"];
-      $fileSize = $_FILES["image"]["size"];
-      $tmpName = $_FILES["image"]["tmp_name"];
-  
-      $validImageExtension = ['jpg', 'jpeg', 'png'];
-      $imageExtension = explode('.', $fileName);
-      $imageExtension = strtolower(end($imageExtension));
-      if ( !in_array($imageExtension, $validImageExtension) ){
-        echo
-        "
-        <script>
-          alert('Invalid Image Extension');
-        </script>
-        ";
-      }
-      else if($fileSize > 1000000){
-        echo
-        "
-        <script>
-          alert('Image Size Is Too Large');
-        </script>
-        ";
-      }
-      else{
-        $newImageName = uniqid();
-        $newImageName .= '.' . $imageExtension;
-  
-        move_uploaded_file($tmpName, '..img/' . $newImageName);
         $query = "update list_service SET title='$title', description='$description', image = '$newImageName' where id = '$ID'";
-        mysqli_query($con, $query);
-        echo
-        "
-        <script>
-          alert('Successfully Added');
-          document.location.href = 'addservice.php';
-        </script>
-        ";
+        if ($query) {
+          echo "<script>alert('Service Successfully Updated');</script>";
+          echo "<script type='text/javascript'> document.location ='list_service.php'; </script>";
+        } else {
+          echo "Error Updating Service" . mysqli_error($con);
+        }
       }
-    }
-}
                 $ID = $_GET['id'];
                 $ret = mysqli_query($con, "select * from list_service where id = '$ID'");
                 $cnt = 1;
@@ -137,17 +99,6 @@ if (isset($_POST['upload'])) {
                     <label for="Description">Description</label>
                     <input type="description" class="form-control" id="Descrpition" name="description" value="<?php echo $row['description'];?>">
                   </div>
-                  <div class="form-group">
-                    <label for="image">Image</label>
-                    <br>
-                    <img src="img/<?php echo $row['image'];?>" style="width:300px;height:200px;">
-                  </div>
-                  <div class="form-group">
-                    <label for="image">Change Image</label>
-                    <br>
-                    <div class="form-group">
-                <input type="file" name="image" accept=".jpg, .jpeg, .png" value="../img/<?php echo $row['image'];?>">
-            </div>
                   </div>
                   </div>
                  <div class="card-footer">

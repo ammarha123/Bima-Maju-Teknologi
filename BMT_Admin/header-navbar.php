@@ -35,7 +35,7 @@
               printf( $rowcount);
       }?> Notifications</span>
               <div class="dropdown-divider"></div>
-              <a href="#" class="dropdown-item">
+              <a href="mailbox.php" class="dropdown-item">
                 <i class="fas fa-envelope mr-2"></i> <?php
           $sql = "SELECT * from user_message WHERE read_status = 0";
           if ($result = mysqli_query($con, $sql)) {
@@ -46,7 +46,6 @@
       }?> new messages
               </a>
               <div class="dropdown-divider"></div>
-              <a href="mailbox.php" class="dropdown-item dropdown-footer">See All Messages</a>
             </div>
           </li>
           </ul>

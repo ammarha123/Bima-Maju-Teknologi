@@ -1,9 +1,40 @@
 <?php
-error_reporting(0);
+include('config.php');
 $identifier = 6;
-include("config.php");
-include("page_sidebar.php");
 include("header-navbar.php");
+include("page_sidebar.php");
+if (isset($_POST['upload'])) {
+    //getting the post values
+    $ID = $_GET['id'];
+    $image = $_FILES['image']['name'];
+    // get the image extension
+    $extension = substr($image, strlen($image) - 4, strlen($image));
+    // allowed extensions
+    $allowed_extensions = array(".jpg", "jpeg", ".png", ".gif");
+    // Validation for allowed extensions .in_array() function searches an array for a specific value.
+    if (!in_array($extension, $allowed_extensions)) {
+        echo "<script>alert('Invalid format. Only jpg / jpeg/ png /gif format allowed');</script>";
+    } else {
+        //rename the image file
+        $imgnewfile = md5($imgfile) . time() . $extension;
+        // Code for move image into directory
+        move_uploaded_file($_FILES["image"]["tmp_name"], "img/" . $imgnewfile);
+        // Query for data insertion
+        $query = mysqli_query($con, "update company_profile SET image = '$imgnewfile' where id = '$ID'");
+        if ($query) {
+            echo "<script>alert('Company Profile Image Edited');</script>";
+            echo "<script type='text/javascript'> document.location ='company_profile.php'; </script>";
+        } else {
+            echo "Error creating table: " . mysqli_error($con);
+        }
+    }
+}
+                $ID = $_GET['id'];
+                $ret = mysqli_query($con, "select * from company_profile where id = '$ID'");
+                $cnt = 1;
+                $row = mysqli_num_rows($ret);
+                if ($row > 0) {
+                    while ($row = mysqli_fetch_array($ret)) {
 ?>
 <!DOCTYPE html>
 <html>
@@ -58,67 +89,50 @@ include("header-navbar.php");
     <!-- /.content-header -->
 
     <!-- Main content -->
-    <section class="content">
-    <div class="container" data-aos="fade-up">
-<div class="card">
-        <div class="card-header">
-          <h3 class="card-title">PT. Bima Maju Teknologi Profile</h3>
-
-          <div class="card-tools">
-            <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
-              <i class="fas fa-minus"></i></button>
-          </div>
+  <div class=container>
+        <div class="mt-2">
+        <div class="section-title">
+          <h3>Current Main Products</h3>
         </div>
-        <div class="card-body p-0">
-<div class="row">
-  
-    <br>
-    <?php
-                $query = "SELECT*FROM company_profile";
-                $query_run=mysqli_query($con,$query);
-                $check = mysqli_num_rows($query_run)>0;
-                if ($check) {
-                    while ($row = mysqli_fetch_assoc($query_run)) {
-
-                ?>
-                <div class="col-lg-4" data-aos="fade-right" data-aos-delay="100">
-    <br><br>
-    <img src="img/<?php echo $row['image'];?>" class="img-fluid" alt="">
-  </div>
-  <div class="col-lg-8 pt-4 pt-lg-0 content d-flex flex-column justify-content-center" data-aos="fade-up" data-aos-delay="100">
-				<h3>We are BMT</h3>
-    <p>
-      <?php echo $row['introduction']?>
-    </p>
-    <h3>Our Vision</h3>
-    <p>
-    <?php echo $row['vision']?>
-    </p>
-    <h3>Our Mission</h3>
-    <p>
-    <?php echo $row['mission']?>
-    </p>
-    </div>
-    </div>
-    </div>
-    </div>
-    <a href="edit_company_profile.php?id=<?php echo $row['id']?>" class="btn bg-gradient-info btn-sm float-right">Edit Profile</a>
-    <a href="edit_company_profile_image.php?id=<?php echo $row['id']?>" class="btn bg-gradient-info btn-sm float-right mr-2">Edit Image</a>
-    
-                    <?php
-                    }
-                  }
-                  else
-                  {
-                    echo "no data record found";
-                  }
-                  ?>
-    
-</div>
-    </section>
+        <div class="row">
+        <div class="col-lg-3 ">
+                  <div class="column">
+                  <div class= "card">
+                    <div class="card-body">
+                    <img class="product-image" style="width:240px; height:200px;" src="img/<?php echo $row['image']; ?>">
+                    <div class="mb-2 text-center">
+                       </div>
+                          </div>
+                    </div>
+                          </div>
+                          </div>
+                          <div class="col-lg-6 ">
+                          <form method="post" enctype="multipart/form-data">
+                <div class="card-body">
+                  <label for="image">Image</label>
+            <div class="form-group">
+                <input type="file" name="image" multiple required="true" accept=".jpg, .jpeg, .png">
+            </div>
+                  </div>
+                 <div class="card-footer">
+                  <button type="submit" name="upload" class="btn btn-primary">Submit</button>
+                     </div>
+              </form>
+                </div>
+                <a href="company_profile.php" type="button" class="btn btn-block btn-info"><i class="fas fa-arrow-left"></i> Back to the Company Profile<a>
+                </div>
+                </div>
+                </div>
     <!-- /.content -->
   </div>
   <!-- /.content-wrapper -->
+  <footer class="main-footer">
+    <strong>Copyright &copy; 2014-2019 <a href="http://adminlte.io">AdminLTE.io</a>.</strong>
+    All rights reserved.
+    <div class="float-right d-none d-sm-inline-block">
+      <b>Version</b> 3.0.4
+    </div>
+  </footer>
 
   <!-- Control Sidebar -->
   <aside class="control-sidebar control-sidebar-dark">
@@ -127,6 +141,16 @@ include("header-navbar.php");
   <!-- /.control-sidebar -->
 </div>
 <!-- ./wrapper -->
+        <?php
+        $cnt = $cnt + 1;
+    }
+} else { ?>
+        <tr>
+            <th style="text-align:center; color:red;" colspan="6">No Record Found</th>
+        </tr>
+    <?php } ?>
+
+                  
 
 <!-- jQuery -->
 <script src="plugins/jquery/jquery.min.js"></script>

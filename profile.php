@@ -3,29 +3,6 @@
 session_start();
 error_reporting(0);
 include("config.php");
-
-//Databse Connection file
-if (isset($_POST['send'])) {
-    //getting the post values
-    $name = $_POST['name'];
-    $email = $_POST['email'];
-    $subject = $_POST['subject'];
-    $message = $_POST['message'];
-    
-        $query = "INSERT INTO user_message VALUES('', '$name','$email','$subject','$message')";
-        mysqli_query($con, $query);
-        if ($query) {
-          echo
-          "
-          <script>
-            alert('Message Sent');
-            document.location.href = 'index.php';
-          </script>
-          ";
-        } else {
-          echo "Failed to Send a Message" . mysqli_error($con);
-        }
-      }
   ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -110,28 +87,32 @@ if (isset($_POST['send'])) {
             </div>
             <div class="col-lg-4" data-aos="fade-right" data-aos-delay="100">
               <br><br>
-              <img src="assets/img/about1.png" class="img-fluid" alt="">
+              <?php
+                $query = "SELECT*FROM company_profile";
+                $query_run=mysqli_query($con,$query);
+                $check = mysqli_num_rows($query_run)>0;
+              if ($check) {
+                while ($row = mysqli_fetch_assoc($query_run)) {
+
+              ?>
+              <img src="bmt_admin/img/<?php echo $row['image']?>" style="width:500px" class="img-fluid" alt="">
             </div>
             <div class="col-lg-8 pt-4 pt-lg-0 content d-flex flex-column justify-content-center" data-aos="fade-up" data-aos-delay="100">
               <h3>We are BMT</h3>
               <p>
-                Our company was established in 2018, we are engaged in the sale and installation of displays 
-                starting from videowall (indoor, outdoor) and videotron. And now we have added our line of 
-                business by providing a sound system installation and projector. With our capabilities, we 
-                have been trusted by various companies and government agencies to supply and install displays, 
-                we have also been trusted several times to work on an national project, on an international scale.
+              <?php echo $row['introduction'] ?>
               </p>
               <h3>Our Vision</h3>
               <p>
-                We are committed to providing professional, creative and innovative display products. 
-                And we also aspire to become a leading and trusted company in providing displays and sound system needs.
+              <?php echo $row['vision'] ?>
               </p>
               <h3>Our Mission</h3>
               <p>
-                Customer smile, we will ensure customer satisfaction, before customers
-                 feel satisfied we will work hard and strive to make it happen.
+              <?php echo $row['mission'] ?>
               </p>
             </div>
+            <?php }
+              }?>
           </div>
           <br>
           <br>
