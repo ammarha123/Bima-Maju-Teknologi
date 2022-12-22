@@ -43,13 +43,8 @@
   <!-- /.login-logo -->
   <div class="card">
     <div class="card-body login-card-body">
-      <p class="login-box-msg">Contact Admin to Start Registration</p>
+      <p class="login-box-msg">Contact Admin to Reset Your Password</p>
 
-      
-      <div class="d-flex justify-content-center">
-        <a href="forgot-password.php">I forgot my password <br> </a>
-      <br>
-      </div>
       <div class="d-flex justify-content-center">
       <a href="login.php" class="text-center">Back to Login Page</a>
       <br>

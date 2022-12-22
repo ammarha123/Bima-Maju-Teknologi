@@ -25,7 +25,8 @@ if (isset($_POST["login"])) {
     
   }else {
     if($password === $confirm_pass){
-      $reg = "insert into adminprofile (name, email, password, staff_id, level) values ('$name', '$email','$password', '$staff_id', '$level')";
+      $hash_password = hash("sha256", $password);
+      $reg = "insert into adminprofile (name, email, password, staff_id, level) values ('$name', '$email','$hash_password', '$staff_id', '$level')";
       mysqli_query($con, $reg);
       echo "<script>alert('Registration Successful')</script>";
       echo "<script>location.href='register.php'</script>";

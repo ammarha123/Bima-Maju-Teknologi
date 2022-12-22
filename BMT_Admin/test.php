@@ -1,32 +1,41 @@
-<?php 
+<?php
  
-session_start();
- 
-if (!isset($_SESSION['email'])) {
-    header("Location: index.php");
-}
+$dataPoints = array(
+	array("y" => 25, "label" => "Sunday"),
+	array("y" => 15, "label" => "Monday"),
+	array("y" => 10, "label" => "Tuesday"),
+	array("y" => 5, "label" => "Wednesday"),
+	array("y" => 10, "label" => "Thursday"),
+	array("y" => 0, "label" => "Friday"),
+	array("y" => 20, "label" => "Saturday")
+);
  
 ?>
- 
-<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE HTML>
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<script>
+window.onload = function () {
  
-    <link rel="stylesheet" type="text/css" href="style.css">
-    <title>Berhasil Login</title>
+var chart = new CanvasJS.Chart("chartContainer", {
+	title: {
+		text: "Push-ups Over a Week"
+	},
+	axisY: {
+		title: "Number of Push-ups"
+	},
+	data: [{
+		type: "line",
+		dataPoints: <?php echo json_encode($dataPoints, JSON_NUMERIC_CHECK); ?>
+	}]
+});
+chart.render();
+ 
+}
+</script>
 </head>
 <body>
-    <div class="container-logout">
-        <form action="" method="POST" class="login-email">
-            <?php echo "<h1>Selamat Datang, " . $_SESSION['name'] ."!". "</h1>"; ?>
-             
-            <div class="input-group">
-            <a href="#" class="btn">Logout</a>
-            </div>
-        </form>
-    </div>
+<div id="chartContainer" style="height: 370px; width: 100%;"></div>
+<script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
 </body>
 </html>

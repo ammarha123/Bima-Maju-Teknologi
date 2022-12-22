@@ -2,33 +2,94 @@
   include("config.php");
   error_reporting(0);
  
-  if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $u = $_POST['email'];
-    $p = ($_POST['password']);
-    $captcha = $_POST["captcha"];
-    $confirmcaptcha = $_POST["confirmcaptcha"];
-    $qCek = mysqli_query($con, "SELECT * FROM adminprofile WHERE email='$u' AND password='$p'");
-    if($captcha != $confirmcaptcha){
+//   if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+//     $u = $_POST['email'];
+//     $p = ($_POST['password']);
+//     $hash_password = hash("sha256", $password);
+//     $captcha = $_POST["captcha"];
+//     $confirmcaptcha = $_POST["confirmcaptcha"];
+//     $qCek = mysqli_query($con, "SELECT * FROM adminprofile WHERE email='$u' AND password='$hash_password'");
+//     if($captcha != $confirmcaptcha){
+//       echo
+//       "<script> alert('Incorrect Captcha'); </script>";
+//     }
+//     else{
+//     if (mysqli_num_rows($qCek) > 0) {
+//         $d = mysqli_fetch_array($qCek);
+//         session_start();
+//         $_SESSION['login'] = 'OK';
+//         $_SESSION['email'] = $d['email'];
+//         $_SESSION['name'] = $d['name'];
+//         $_SESSION['staff_id'] = $d['staff_id'];
+//         $_SESSION['level'] = $d['level'];
+//         header('Location:index.php');
+//     } else {
+//       echo "<script>alert('Username/Password incorrect!')</script>";
+//       echo "<script>location.href='login.php'</script>";
+//     }
+//   }
+// }
+session_start();
+
+$email = $_POST['email'];
+
+$password = $_POST['password'];
+
+$hash_password = hash("sha256", $password);
+$captcha = $_POST["captcha"];
+$confirmcaptcha = $_POST["confirmcaptcha"];
+
+$s = "select * from adminprofile where email = '$email' && password = '".$hash_password."'";
+
+$result = mysqli_query($con, $s);
+
+$num = mysqli_num_rows($result);
+if($captcha != $confirmcaptcha){
       echo
-      "<script> alert('Incorrect Captcha'); </script>";
+     "<script> alert('Incorrect Captcha'); </script>";
     }
     else{
-    if (mysqli_num_rows($qCek) > 0) {
-      
-        $d = mysqli_fetch_array($qCek);
-        session_start();
-        $_SESSION['login'] = 'OK';
-        $_SESSION['email'] = $d['email'];
-        $_SESSION['name'] = $d['name'];
-        $_SESSION['staff_id'] = $d['staff_id'];
-        $_SESSION['level'] = $d['level'];
-        header('Location:index.php');
+  if (isset($email) && isset($password)) {
+    if ($num == 1) {
+      $d = mysqli_fetch_array($result);
+      session_start();
+      $_SESSION['email'] = $d['email'];
+      $_SESSION['name'] = $d['name'];
+      $_SESSION['staff_id'] = $d['staff_id'];
+      $_SESSION['level'] = $d['level'];
+      header('Location:index.php');
     } else {
       echo "<script>alert('Username/Password incorrect!')</script>";
       echo "<script>location.href='login.php'</script>";
+
     }
   }
 }
+// if(isset($_POST['submit'])){
+// 	$email = trim($_POST['email']);
+// 	$password = trim($_POST['password']);
+// 	$captcha = $_POST["captcha"];
+// $confirmcaptcha = $_POST["confirmcaptcha"];
+
+// 	$sql = "select * from adminprofile where email = '".$email."'";
+// 	$rs = mysqli_query($con,$sql);
+// 	$numRows = mysqli_num_rows($rs);
+// 	if($captcha != $confirmcaptcha){
+//     echo
+//      "<script> alert('Incorrect Captcha'); </script>";
+//       } else {
+//     if ($numRows == 1) {
+//       $row = mysqli_fetch_assoc($rs);
+//       if (password_verify($password, $row['password'])) {
+//         echo "Password verified";
+//       } else {
+//         echo "Wrong Password";
+//       }
+//     } else {
+//       echo "No User found";
+//     }
+//   }
+// }
 //   $s = "select * from adminprofile where email = '$email' && password = '".($password)."'";
 
 //   $result = mysqli_query($con, $s);
@@ -134,17 +195,17 @@
         <div class="row">
           <!-- /.col -->
           <div class="col-12">
-            <button type="submit"name="login" id="login" class="btn btn-warning btn-block text-center">Sign In</button>
+            <button type="submit"name="submit" id="login" class="btn btn-warning btn-block text-center">Sign In</button>
           </div>
           <!-- /.col -->
         </div>
       </form>
 
       <p class="mb-1">
-        <a href="forgot-password.html">I forgot my password</a>
+        <a href="forgot-password.php">I forgot my password</a>
       </p>
       <p class="mb-0">
-        <a href="register.php" class="text-center">Register</a>
+        <a href="register_request.php" class="text-center">Register</a>
       </p>
     </div>
     <!-- /.login-card-body -->
