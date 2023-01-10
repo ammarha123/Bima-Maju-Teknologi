@@ -102,7 +102,7 @@ if ($row > 0) {
                   <div class="column">
                     <div class="card">
                       <div class="card-body">
-                        <img class="product-image position-relative" style="width:240px; height:200px;text-align: center;" src="../img/<?php echo $row['filename']; ?>">
+                        <img class="product-image mx-auto d-block" style="width:240px; height:200px;text-align: center;" src="../img/<?php echo $row['filename']; ?>">
                         <br>
                         <h4 class="mt-3" style="text-align: center;"><?php echo $row['title']; ?></h4>
                         <div class="mb-2 text-center">
@@ -113,7 +113,7 @@ if ($row > 0) {
                 </div>
                 <div class="col-lg-6 ">
                   <form method="post" enctype="multipart/form-data">
-                    <div class="card p-3">
+                    <div class="card p-3 mt-lg-3">
                       <div class="form-group">
                         <label>Title</label>
                         <input type="text" name="title" class="form-control" placeholder="" value="<?php echo $row['title']; ?>">

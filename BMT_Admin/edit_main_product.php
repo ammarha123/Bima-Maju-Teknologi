@@ -73,10 +73,10 @@ include("header-navbar.php");
                     while ($row = mysqli_fetch_assoc($query_run)) {
 
                 ?>
-					<div class="column">
+					<div class="col-lg-3 col-6">
             <div class= "card">
               <div class="card-body">
-              <img class="product-image" style="width:240px; height:200px;" src="../img/<?php echo $row['filename'];?>">
+              <img class="product-image mx-auto d-block" style="width:240px; height:200px;" src="../img/<?php echo $row['filename'];?>">
               <br>
               <h4 class="mt-3" style="text-align: center;"><?php echo $row['title']?></h4>
               <div class="mb-2 text-center">
