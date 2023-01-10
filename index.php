@@ -3,7 +3,6 @@
 session_start();
 error_reporting(0);
 include("config.php");
-
 //Databse Connection file
 if (isset($_POST['send'])) {
     //getting the post values
@@ -21,11 +20,6 @@ if (isset($_POST['send'])) {
         }
       }
   ?>
-
-<?php
-include("config.php");
-
-?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -80,6 +74,7 @@ include("config.php");
       text-align: center;
     }
   </style>
+  <?php include("log.php");?>
 </head>
 
 <body>

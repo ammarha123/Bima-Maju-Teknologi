@@ -80,7 +80,7 @@ include("header-navbar.php");
               <br>
               <h4 class="mt-3" style="text-align: center;"><?php echo $row['title']?></h4>
               <div class="mb-2 text-center">
-                <a href="change_image_product.php?id=<?php echo $row['id'];?>" class="btn btn-warning rounded-pill">Change Image</a>
+                <a href="change_image_product.php?id=<?php echo $row['id'];?>" class="btn btn-warning rounded-pill"><i class="ion ion-android-sync"></i> Change Image</a>
                  </div>
                     </div>
                     </div>
@@ -93,7 +93,7 @@ include("header-navbar.php");
                     echo "no data record found";
                   }
                   ?>
-                <a href="edit_main_product.php" type="button" class="btn btn-block btn-info">Edit the Main Product Display  <i class="fas fa-arrow-right"></i><a>
+                <a href="list_main_product.php" type="button" class="btn btn-block btn-danger"> <i class="ion ion-android-cancel"></i> Cancel <a>
                 </div>
                 </div>
                 </div>
