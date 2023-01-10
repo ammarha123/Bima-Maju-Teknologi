@@ -5,21 +5,21 @@ error_reporting(0);
 include("config.php");
 //Databse Connection file
 if (isset($_POST['send'])) {
-    //getting the post values
-    $name = $_POST['name'];
-    $email = $_POST['email'];
-    $subject = $_POST['subject'];
-    $message = $_POST['message'];
-        $query = "INSERT INTO user_message (name, email, subject, message, created_time) VALUES ('$name','$email','$subject','$message', NOW())";
-        mysqli_query($con, $query);
-        if ($query) {
-          echo "<script>alert('Message Sent');</script>";
-          echo "<script type='text/javascript'> document.location ='index.php'; </script>";
-        } else {
-          echo "Failed to Send a Message" . mysqli_error($con);
-        }
-      }
-  ?>
+  //getting the post values
+  $name = $_POST['name'];
+  $email = $_POST['email'];
+  $subject = $_POST['subject'];
+  $message = $_POST['message'];
+  $query = "INSERT INTO user_message (name, email, subject, message, created_time) VALUES ('$name','$email','$subject','$message', NOW())";
+  mysqli_query($con, $query);
+  if ($query) {
+    echo "<script>alert('Message Sent');</script>";
+    echo "<script type='text/javascript'> document.location ='index.php'; </script>";
+  } else {
+    echo "Failed to Send a Message" . mysqli_error($con);
+  }
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -34,7 +34,7 @@ if (isset($_POST['send'])) {
   <!-- Favicons -->
   <link href="assets/img/web-icon.png" rel="icon">
   <link href="assets/img/logo.png" rel="apple-touch-icon">
-  
+
 
   <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Roboto:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
@@ -59,14 +59,15 @@ if (isset($_POST['send'])) {
   ======================================================== -->
   <style>
     .unselectable {
-        -webkit-user-select: none;
-        -webkit-touch-callout: none;
-        -moz-user-select: none;
-        -ms-user-select: none;
-        user-select: none;
-        color: #cc0000;
-      }
-      input.captcha{
+      -webkit-user-select: none;
+      -webkit-touch-callout: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+      color: #cc0000;
+    }
+
+    input.captcha {
       pointer-events: none;
       letter-spacing: 12px;
       text-decoration: dotted line-through;
@@ -74,7 +75,7 @@ if (isset($_POST['send'])) {
       text-align: center;
     }
   </style>
-  <?php include("log.php");?>
+  <?php include("log.php"); ?>
 </head>
 
 <body>
@@ -108,15 +109,15 @@ if (isset($_POST['send'])) {
       <h2>Bring your dreams to life<br>People dream of the future and<br>
         Share their dreams to each other</h2>
  Button trigger modal -->
-<!-- <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#Modal">
+    <!-- <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#Modal">
   Book Now
 </button> --> -->
 
 
     </div> -->
-  </section><!-- End Hero --> 
+  </section><!-- End Hero -->
 
-<!-- Modal Style-->
+  <!-- Modal Style-->
   <div class="modal fade" id="Modal" tabindex="-1" aria-labelledby="ModalLabel" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
@@ -130,14 +131,14 @@ if (isset($_POST['send'])) {
             <h5 style="text-align: center;">(+62) 213 505000</h5><br>
             <div class="d-grid gap-2 col-4 mx-auto">
               <button class="btn btn-outline-secondary" data-bs-dismiss="modal" type="button">OK</button>
-              
+
             </div>
           </div>
         </div>
         <div class="modal-footer">
           <div class="d-grid gap-0 col- 8 mx-auto">
-          <h5>Let Us Know Your Need, We are Happy to Help <i class="fa fa-smile-o" style="font-size:20px"></i> </h5>
-        </div>
+            <h5>Let Us Know Your Need, We are Happy to Help <i class="fa fa-smile-o" style="font-size:20px"></i> </h5>
+          </div>
         </div>
       </div>
     </div>
@@ -153,44 +154,37 @@ if (isset($_POST['send'])) {
           <h3>Main Products</h3>
         </div>
         <div class="row">
-        <?php
-                $query = "SELECT*FROM main_product";
-                $query_run=mysqli_query($con,$query);
-                $check = mysqli_num_rows($query_run)>0;
-                if ($check) {
-                    while ($row = mysqli_fetch_assoc($query_run)) {
+          <?php
+          $query = "SELECT*FROM main_product";
+          $query_run = mysqli_query($con, $query);
+          $check = mysqli_num_rows($query_run) > 0;
+          if ($check) {
+            while ($row = mysqli_fetch_assoc($query_run)) {
 
-                ?>
-					
-          <div class="col-md-6 col-lg-3 d-flex align-items-stretch mb-5 mb-lg-0">
-            <div class="icon-box" data-aos="fade-up" data-aos-delay="100">
-              <div class="portfolio-info">
-                <a href="img/<?php echo $row['filename'] ?>" class="portfolio-lightbox preview-link" title="<?php echo $row['title']?>">
-                  <img src="img/<?php echo $row['filename'] ?>" class="img-fluid rounded" alt="">
-                </a>
+          ?>
+
+              <div class="col-md-6 col-lg-3 col-6 d-flex align-items-stretch mb-3 mb-lg-0">
+                <div class="icon-box" data-aos="fade-up" data-aos-delay="100">
+                  <div class="portfolio-info">
+                    <a href="img/<?php echo $row['filename'] ?>" class="portfolio-lightbox preview-link" title="<?php echo $row['title'] ?>">
+                      <img src="img/<?php echo $row['filename'] ?>" class="img-fluid rounded" alt="">
+                    </a>
+                  </div>
+                  <h4 class="title"><a href="product.php#<?php echo $row['title'] ?>"><br><?php echo $row['title'] ?></a></h4>
+                </div>
               </div>
-              <h4 class="title"><a href="product.php#<?php echo $row['title']?>"><br><?php echo $row['title']?></a></h4>
-            </div>
-          </div>
-                    <?php
-                    }
-                  }
-                  else
-                  {
-                    echo "no data record found";
-                  }
-                  ?>
-      
-
-
-
+          <?php
+            }
+          } else {
+            echo "no data record found";
+          }
+          ?>
         </div>
 
       </div>
     </section><!-- End Featured Services Section -->
 
 
-   
     <!-- ======= Services Section ======= -->
     <section id="services-home" class="services-home">
       <div class="container" data-aos="fade-up">
@@ -199,31 +193,29 @@ if (isset($_POST['send'])) {
           <h3>Check Our Services</h3>
         </div>
 
-          <div class="row">
+        <div class="row">
           <?php
-                $query = "SELECT*FROM main_service";
-                $query_run=mysqli_query($con,$query);
-                $check = mysqli_num_rows($query_run)>0;
-                if ($check) {
-                    while ($row = mysqli_fetch_assoc($query_run)) {
+          $query = "SELECT*FROM main_service";
+          $query_run = mysqli_query($con, $query);
+          $check = mysqli_num_rows($query_run) > 0;
+          if ($check) {
+            while ($row = mysqli_fetch_assoc($query_run)) {
 
-                ?>
-					<div class="col-lg-4 col-md-6 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="100">
-              <div class="icon-box">
-                <a href="img/<?php echo $row['filename']?>" class="portfolio-lightbox preview-link img-fluid rounded mx-auto d-block" alt="">
-                  <img src="img/<?php echo $row['filename']?>" style="width:400px;height:300px;" class="img-fluid rounded" alt="">
-                </a>
-                <h2></h2>
+          ?>
+              <div class="col-lg-4 col-md-6 col-12 d-block align-items-stretch mx-auto" data-aos="fade-up" data-aos-delay="100">
+                <div class="icon-box">
+                  <a href="img/<?php echo $row['filename'] ?>" class="portfolio-lightbox preview-link img-fluid rounded mx-auto d-block" alt="">
+                    <img src="img/<?php echo $row['filename'] ?>" style="width:400px;height:300px;" class="img-fluid rounded" alt="">
+                  </a>
+                  <h2></h2>
+                </div>
               </div>
-            </div>
-                    <?php
-                    }
-                  }
-                  else
-                  {
-                    echo "no data record found";
-                  }
-                  ?>
+          <?php
+            }
+          } else {
+            echo "no data record found";
+          }
+          ?>
         </div>
         <br>
         <div class="text-center">
@@ -232,37 +224,37 @@ if (isset($_POST['send'])) {
       </div>
     </section><!-- End Services Section -->
 
-     <!-- ======= Clients Section ======= -->
-     <section id="clients" class="clients section-bg">
+    <!-- ======= Clients Section ======= -->
+    <section id="clients" class="clients section-bg">
       <div class="container" data-aos="zoom-in">
-        
-          <h3>Our Partner</h3>
 
-          <div class="row gy-5">
-            <div class="col-xl-3 col-md-6" data-aos="fade-up" data-aos-delay="100">
-              <div class="post-box">
-                <div class="post-img"><img src="assets/img/samsunglogo.png" class="img-fluid" alt=""></div>
-              </div>
-            </div>
-            <div class="col-xl-3 col-md-6" data-aos="fade-up" data-aos-delay="100">
-              <div class="post-box">
-                <div class="post-img"><img src="assets/img/lglogo.png" class="img-fluid" alt=""></div>
-              </div>
-            </div>
+        <h3>Our Partner</h3>
 
-            <div class="col-xl-3 col-md-6" data-aos="fade-up" data-aos-delay="100">
-              <div class="post-box">
-                <br>
-                <br>
-                <div class="post-img"><img src="assets/img/panasoniclogo.png" class="img-fluid" alt=""></div>
-              </div>
+        <div class="row gy-5">
+          <div class="col-xl-3 col-md-6" data-aos="fade-up" data-aos-delay="100">
+            <div class="post-box">
+              <div class="post-img"><img src="assets/img/samsunglogo.png" class="img-fluid" alt=""></div>
             </div>
-            <div class="col-xl-3 col-md-6" data-aos="fade-up" data-aos-delay="100">
-              <br>  
-              <div class="post-box">
-                <div class="post-img"><img src="assets/img/boschlogo.png" class="img-fluid" alt=""></div>
-              </div>
+          </div>
+          <div class="col-xl-3 col-md-6" data-aos="fade-up" data-aos-delay="100">
+            <div class="post-box">
+              <div class="post-img"><img src="assets/img/lglogo.png" class="img-fluid" alt=""></div>
             </div>
+          </div>
+
+          <div class="col-xl-3 col-md-6" data-aos="fade-up" data-aos-delay="100">
+            <div class="post-box">
+              <br>
+              <br>
+              <div class="post-img"><img src="assets/img/panasoniclogo.png" class="img-fluid" alt=""></div>
+            </div>
+          </div>
+          <div class="col-xl-3 col-md-6" data-aos="fade-up" data-aos-delay="100">
+            <br>
+            <div class="post-box">
+              <div class="post-img"><img src="assets/img/boschlogo.png" class="img-fluid" alt=""></div>
+            </div>
+          </div>
 
         </div>
 
@@ -331,10 +323,10 @@ if (isset($_POST['send'])) {
               </div>
               <div class="form-group text-center">
                 <div class="unselectable">
-              <input type="text" class ="captcha form-control fw-bold" name="captcha" value="<?php echo substr(uniqid(), 6); ?>">
+                  <input type="text" class="captcha form-control fw-bold" name="captcha" value="<?php echo substr(uniqid(), 6); ?>">
+                </div>
+                <input type="text" class="form-control" name="confirmcaptcha" placeholder="Input Captcha" value="" required>
               </div>
-              <input type="text" class="form-control" name="confirmcaptcha" placeholder="Input Captcha" value="" required>
-             </div>
               <div class="text-center"><button type="submit" name="send" id="send">Send Message</button></div>
             </form>
           </div>
@@ -354,11 +346,11 @@ if (isset($_POST['send'])) {
         <div class="row">
 
           <div class="col-lg-3 col-md-6 footer-contact">
-           
+
             <h3>PT. Bima Maju Teknologi<span>.</span></h3>
             <p>
               Wisma BSG 3A floor, <br>Jl. Abdul Muis,<br>
-                No.40, RT.1/RW.8, <br>South Petojo, Central Jakarta <br><br>
+              No.40, RT.1/RW.8, <br>South Petojo, Central Jakarta <br><br>
               <strong>Phone:</strong> +62213505000<br>
               <strong>Email:</strong> info@bimamajuteknologi.com<br>
             </p>
@@ -377,7 +369,7 @@ if (isset($_POST['send'])) {
             <h4>Get in Touch with Us.</h4>
             <ul>
               <li><a href="#contactus"><button type="submit">Contact Us</button></a></li>
-              
+
             </ul>
           </div>
 
@@ -397,7 +389,7 @@ if (isset($_POST['send'])) {
               &copy; Copyright - 2022<strong><span> PT. Bima Maju Teknologi</span></strong>. All Rights Reserved
             </div>
           </div>
-          
+
         </div>
 
       </div>
