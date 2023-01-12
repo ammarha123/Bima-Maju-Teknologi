@@ -208,14 +208,6 @@ if (!isset($_SESSION['login'])) {
           <div class="row">
             <!-- Left col -->
             <section class="col-lg-7 connectedSortable">
-              <?php
-              include("config.php");
-              $sql = "SELECT DATE_FORMAT(visit_date, '%Y') as 'year',
-              DATE_FORMAT(visit_date, '%m') as 'month',
-              COUNT(id) as 'total'
-              FROM visitors";
-              $result = $con->query($sql);
-              ?>
               <!-- Highchart -->
               <div id="container" class="mb-5" style="min-width: 310px; max-width: 800px; height: 400px; margin: 0 auto">
 
