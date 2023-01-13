@@ -10,19 +10,21 @@ if (isset($_POST['upload'])) {
     $description = $_POST['description'];
     $type = $_POST['type'];
     $query = "update list_product SET title='$title', description='$description', type='$type' where id = '$ID'";
-        if ($query) {
-          echo "<script>alert('Product Successfully Updated');</script>";
-          echo "<script type='text/javascript'> document.location ='list_product.php'; </script>";
-        } else {
-          echo "Error Updating Product" . mysqli_error($con);
-        }
-      }
-                $ID = $_GET['id'];
-                $ret = mysqli_query($con, "select * from list_product where id = '$ID'");
-                $cnt = 1;
-                $row = mysqli_num_rows($ret);
-                if ($row > 0) {
-                    while ($row = mysqli_fetch_array($ret)) {
+    mysqli_query($con, $query);
+    echo
+    "
+    <script>
+      alert('Successfully Edited');
+      document.location.href = 'list_product.php';
+    </script>
+    ";
+  }
+            $ID = $_GET['id'];
+            $ret = mysqli_query($con, "select * from list_product where id = '$ID'");
+            $cnt = 1;
+            $row = mysqli_num_rows($ret);
+            if ($row > 0) {
+                while ($row = mysqli_fetch_array($ret)) {
 ?>
 
 <!DOCTYPE html>
@@ -30,7 +32,7 @@ if (isset($_POST['upload'])) {
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>AdminLTE 3 | Dashboard</title>
+  <title>PT. BMT | Dashboard</title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <!-- Font Awesome -->

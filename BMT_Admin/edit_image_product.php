@@ -1,9 +1,8 @@
 <?php
-$identifier = 2;
 include('config.php');
+$identifier = 2;
 include("header-navbar.php");
 include("page_sidebar.php");
-
 if (isset($_POST['upload'])) {
   //getting the post values
   $ID = $_GET['id'];
@@ -23,7 +22,7 @@ if (isset($_POST['upload'])) {
     // Query for data insertion
     $query = mysqli_query($con, "update list_product SET image = '$imgnewfile' where id = '$ID'");
     if ($query) {
-      echo "<script>alert('Post Edited');</script>";
+      echo "<script>alert('List Product Image Edited');</script>";
       echo "<script type='text/javascript'> document.location ='list_product.php'; </script>";
     } else {
       echo "Error creating table: " . mysqli_error($con);
@@ -43,7 +42,7 @@ if ($row > 0) {
     <head>
       <meta charset="utf-8">
       <meta http-equiv="X-UA-Compatible" content="IE=edge">
-      <title>AdminLTE 3 | Dashboard</title>
+      <title>PT. BMT | Dashboard</title>
       <!-- Tell the browser to be responsive to screen width -->
       <meta name="viewport" content="width=device-width, initial-scale=1">
       <!-- Font Awesome -->
@@ -61,7 +60,7 @@ if ($row > 0) {
             <div class="container-fluid">
               <div class="row mb-2">
                 <div class="col-sm-6">
-                  <h1 class="m-0 text-dark">List of Product</h1>
+                  <h1 class="m-0 text-dark">List Product</h1>
                 </div><!-- /.col -->
                 <div class="col-sm-6">
                   <ol class="breadcrumb float-sm-right">
@@ -77,15 +76,12 @@ if ($row > 0) {
           <!-- Main content -->
           <div class=container>
             <div class="mt-2">
-              <div class="section-title">
-                <h3>Edit Image of the Products</h3>
-              </div>
               <div class="row">
                 <div class="col-lg-3 ">
                   <div class="column">
                     <div class="card">
                       <div class="card-body">
-                        <img class="product-image mx-auto d-block" style="width:240px; height:200px;" src="../img/<?php echo $row['image']; ?>">
+                        <img class="product-image" style="width:240px; height:200px;" src="../img/<?php echo $row['image']; ?>">
                         <div class="mb-2 text-center">
                         </div>
                       </div>
@@ -94,10 +90,10 @@ if ($row > 0) {
                 </div>
                 <div class="col-lg-6 ">
                   <form method="post" enctype="multipart/form-data">
-                  <div class="card p-3 mt-lg-3">
+                    <div class="card p-3 mt-lg-3">
                       <label for="image">Image</label>
                       <div class="form-group">
-                        <input type="file" name="filename" multiple required="true" accept=".jpg, .jpeg, .png">
+                        <input type="file" name="image" multiple required="true" accept=".jpg, .jpeg, .png">
                       </div>
                       <div class="mt-5">
                         <button type="submit" name="upload" class="btn btn-warning">Submit</button>
@@ -105,19 +101,21 @@ if ($row > 0) {
                     </div>
                   </form>
                 </div>
-                <a href="list_product.php" type="button" class="btn btn-block btn-info"><i class="fas fa-arrow-left"></i> Back to the List of Product<a>
+
+                    
+
+                  </form>
+                </div>
+                <a href="list_product.php" type="button" class="btn btn-block btn-info"><i class="fas fa-arrow-left"></i> Back to the List Product<a>
               </div>
             </div>
           </div>
           <!-- /.content -->
         </div>
         <!-- /.content-wrapper -->
-        <footer class="main-footer">
-          <strong>Copyright &copy; 2014-2019 <a href="http://adminlte.io">AdminLTE.io</a>.</strong>
+        <footer class="main-footer bg-warning">
+          <strong>Copyright &copy; PT. Bima Maju Teknologi.</strong>
           All rights reserved.
-          <div class="float-right d-none d-sm-inline-block">
-            <b>Version</b> 3.0.4
-          </div>
         </footer>
 
         <!-- Control Sidebar -->
@@ -137,16 +135,16 @@ if ($row > 0) {
   <?php } ?>
 
 
-<!-- jQuery -->
-<script src="plugins/jquery/jquery.min.js"></script>
-<!-- jQuery UI 1.11.4 -->
-<script src="plugins/jquery-ui/jquery-ui.min.js"></script>
-<!-- Bootstrap 4 -->
-<script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
-<!-- AdminLTE App -->
-<script src="dist/js/adminlte.js"></script>
-<!-- AdminLTE dashboard demo (This is only for demo purposes) -->
-<script src="dist/js/pages/dashboard.js"></script>
+  <!-- jQuery -->
+  <script src="plugins/jquery/jquery.min.js"></script>
+  <!-- jQuery UI 1.11.4 -->
+  <script src="plugins/jquery-ui/jquery-ui.min.js"></script>
+  <!-- Bootstrap 4 -->
+  <script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <!-- AdminLTE App -->
+  <script src="dist/js/adminlte.js"></script>
+  <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
+  <script src="dist/js/pages/dashboard.js"></script>
     </body>
 
     </html>

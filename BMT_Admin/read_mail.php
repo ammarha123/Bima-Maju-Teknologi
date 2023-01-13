@@ -15,7 +15,7 @@ $row = mysqli_fetch_assoc($result);
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>AdminLTE 3 | Dashboard</title>
+  <title>PT. BMT | Dashboard</title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <!-- Font Awesome -->
@@ -50,7 +50,7 @@ $row = mysqli_fetch_assoc($result);
 <div class="container-fluid">
         <div class="row">
           <div class="col-md-3">
-            <a href="mailbox.php" class="btn btn-primary btn-block mb-3">Back to Inbox</a>
+            <a href="mailbox.php" class="btn btn-warning btn-block mb-3">Back to Inbox</a>
 
             <div class="card">
               <div class="card-header">
@@ -66,7 +66,15 @@ $row = mysqli_fetch_assoc($result);
                   <li class="nav-item active">
                     <a href="mailbox.php" class="nav-link">
                       <i class="fas fa-inbox"></i> Inbox
-                      <span class="badge bg-primary float-right">12</span>
+                      <span class="badge bg-warning float-right">
+                        <?php
+                        $sql = "SELECT * from user_message";
+                        if ($result = mysqli_query($con, $sql)) {
+                          // Return the number of rows in result set
+                          $rowcount = mysqli_num_rows($result);
+                          // Display result
+                          printf($rowcount);
+                        } ?></span>
                     </a>
                   </li>
                 </ul>
@@ -78,7 +86,7 @@ $row = mysqli_fetch_assoc($result);
           </div>
           <!-- /.col -->
         <div class="col-md-9">
-          <div class="card card-primary card-outline">
+          <div class="card card-warning card-outline">
             <div class="card-header">
               <h3 class="card-title">Read Mail</h3>
       

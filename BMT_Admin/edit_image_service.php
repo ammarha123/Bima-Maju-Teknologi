@@ -42,7 +42,7 @@ if ($row > 0) {
     <head>
       <meta charset="utf-8">
       <meta http-equiv="X-UA-Compatible" content="IE=edge">
-      <title>AdminLTE 3 | Dashboard</title>
+      <title>PT. BMT | Dashboard</title>
       <!-- Tell the browser to be responsive to screen width -->
       <meta name="viewport" content="width=device-width, initial-scale=1">
       <!-- Font Awesome -->
@@ -96,7 +96,7 @@ if ($row > 0) {
                   <div class="card p-3 mt-lg-3">
                       <label for="image">Image</label>
                       <div class="form-group">
-                        <input type="file" name="filename" multiple required="true" accept=".jpg, .jpeg, .png">
+                        <input type="file" name="image" multiple required="true" accept=".jpg, .jpeg, .png">
                       </div>
                       <div class="mt-5">
                         <button type="submit" name="upload" class="btn btn-warning">Submit</button>

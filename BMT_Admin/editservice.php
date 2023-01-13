@@ -8,20 +8,22 @@ if (isset($_POST['upload'])) {
   $ID = $_GET['id'];
   $title = $_POST['title'];
   $description = $_POST['description'];
-  $query = "update list_service SET title='$title', description='$description', image = '$newImageName' where id = '$ID'";
-  if ($query) {
-    echo "<script>alert('Service Successfully Updated');</script>";
-    echo "<script type='text/javascript'> document.location ='list_service.php'; </script>";
-  } else {
-    echo "Error Updating Service" . mysqli_error($con);
-  }
+  $query = "update list_service SET title='$title', description='$description' where id = '$ID'";
+  mysqli_query($con, $query);
+  echo
+  "
+  <script>
+    alert('Successfully Edited');
+    document.location.href = 'list_service.php';
+  </script>
+  ";
 }
-$ID = $_GET['id'];
-$ret = mysqli_query($con, "select * from list_service where id = '$ID'");
-$cnt = 1;
-$row = mysqli_num_rows($ret);
-if ($row > 0) {
-  while ($row = mysqli_fetch_array($ret)) {
+          $ID = $_GET['id'];
+          $ret = mysqli_query($con, "select * from list_service where id = '$ID'");
+          $cnt = 1;
+          $row = mysqli_num_rows($ret);
+          if ($row > 0) {
+              while ($row = mysqli_fetch_array($ret)) {
 ?>
 
     <!DOCTYPE html>
@@ -30,7 +32,7 @@ if ($row > 0) {
     <head>
       <meta charset="utf-8">
       <meta http-equiv="X-UA-Compatible" content="IE=edge">
-      <title>AdminLTE 3 | Dashboard</title>
+      <title>PT. BMT | Dashboard</title>
       <!-- Tell the browser to be responsive to screen width -->
       <meta name="viewport" content="width=device-width, initial-scale=1">
       <!-- Font Awesome -->
